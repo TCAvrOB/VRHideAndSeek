@@ -1,0 +1,16 @@
+{
+  "source": "Unity",
+  "applications": [
+    {
+      "app_key": "application.generated.unity.vrhideandseek.exe",
+      "launch_type": "url",
+      "url": "steam://launch/",
+      "action_manifest_path": "D:\\Work\\VRHideAndSeek\\actions.json",
+      "strings": {
+        "en_us": {
+          "name": "VRHideAndSeek [Testing]"
+        }
+      }
+    }
+  ]
+}
