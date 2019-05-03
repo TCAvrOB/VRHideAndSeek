@@ -13,6 +13,10 @@ public class Network : MonobitEngine.MunMonoBehaviour
     [SerializeField] GameObject Head;
     [SerializeField] GameObject Player;
     [SerializeField] GameObject FPSPos;
+    [SerializeField] GameObject Sun;
+
+    [SerializeField] World world;
+    [SerializeField] VRPlayer vrPlayer;
 
     static PlayMode mode = PlayMode.None;
 
@@ -23,6 +27,7 @@ public class Network : MonobitEngine.MunMonoBehaviour
         None,
         Gaint,
         Mini,
+        MiniVR,
     }
 
     NetworkTransform playerTransform;
@@ -33,6 +38,7 @@ public class Network : MonobitEngine.MunMonoBehaviour
 
     string laserScale;
     string moveSpeed;
+    float sunAngle = 50f;
 
     void Start()
     {
@@ -150,6 +156,9 @@ public class Network : MonobitEngine.MunMonoBehaviour
             {
                 playerTransform = Player.AddComponent<NetworkTransform>();
             }
+
+            world.SetVR(false);
+            player.VRMode = false;
         }
 
         if (GUILayout.Button("Mini"))
@@ -166,6 +175,26 @@ public class Network : MonobitEngine.MunMonoBehaviour
             normalCam.transform.parent = FPSPos.transform;
             normalCam.transform.localPosition = Vector3.zero;
             normalCam.transform.localRotation = Quaternion.identity;
+
+            world.SetVR(false);
+            player.VRMode = false;
+        }
+
+        if (GUILayout.Button("MiniVR"))
+        {
+            normalCam.SetActive(false);
+            vrCam.SetActive(true);
+            UnityEngine.XR.XRSettings.enabled = true;
+
+            mode = PlayMode.MiniVR;
+            if (headTransform == null)
+            {
+                headTransform = Head.AddComponent<NetworkTransform>();
+            }
+
+            world.SetVR(true);
+            player.VRMode = true;
+            vrPlayer.Init();
         }
 
         GUILayout.Label("Mode: " + mode);
@@ -193,5 +222,9 @@ public class Network : MonobitEngine.MunMonoBehaviour
             }
         }
         GUILayout.EndHorizontal();
+
+        GUILayout.Label("Sun: ");
+        sunAngle = GUILayout.HorizontalSlider(sunAngle, 0f, 180f);
+        Sun.transform.rotation = Quaternion.Euler(sunAngle, -30f, 0f);
     }
 }
