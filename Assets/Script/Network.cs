@@ -224,7 +224,7 @@ public class Network : MonobitEngine.MunMonoBehaviour
         GUILayout.EndHorizontal();
 
         GUILayout.Label("Sun: ");
-        sunAngle = GUILayout.HorizontalSlider(sunAngle, 0f, 180f);
+        sunAngle = GUILayout.HorizontalSlider(sunAngle, 0f, 360f);
         Sun.transform.rotation = Quaternion.Euler(sunAngle, -30f, 0f);
     }
 }
