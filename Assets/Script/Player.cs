@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     [SerializeField] VRPlayer vr;
     [SerializeField] GameObject Model;
     [SerializeField] SkinnedMeshRenderer mesh;
+    [SerializeField] GameObject CameraBase;
 
     public bool VRMode { get; set; }
 
@@ -74,7 +75,7 @@ public class Player : MonoBehaviour
             transform.rotation = transform.rotation * Quaternion.AngleAxis(y, Vector3.up);
 
             float head = Input.GetAxis("Vertical2");
-            Head.transform.localRotation = Head.transform.localRotation * Quaternion.Euler(head, 0, 0);
+            CameraBase.transform.localRotation = CameraBase.transform.localRotation * Quaternion.Euler(head, 0, 0);
         }
     }
 
