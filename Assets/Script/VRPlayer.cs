@@ -8,6 +8,9 @@ public class VRPlayer : MonoBehaviour
     [SerializeField] GameObject VRCamera;
     [SerializeField] float PlayerHeight = 0.08f;
 
+    public GameObject Camera { get { return VRCamera; } }
+    public float Height { get { return PlayerHeight; } }
+
     public Transform CameraTransform { get { return VRCamera.transform; } }
 
     private void Start()
@@ -37,7 +40,7 @@ public class VRPlayer : MonoBehaviour
         float cameraAngle = Ultility.AbsolutelyAngle(VRCamera.transform.forward);
         float baseAngle = Ultility.AbsolutelyAngle(transform.forward);
 
-        transform.rotation = Quaternion.AngleAxis(baseAngle + playerAngle - cameraAngle, Vector3.up);
+        //transform.rotation = Quaternion.AngleAxis(baseAngle + playerAngle - cameraAngle, Vector3.up);
 
         Vector3 diff = pos - VRCamera.transform.position;
         diff.y = 0f;

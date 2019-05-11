@@ -34,8 +34,6 @@ public class Player : MonoBehaviour
         m = mesh.material;
     }
 
-    private bool lastHasInput;
-
     private void FixedUpdate()
     {
         float x = Input.GetAxis("Horizontal") * speed * rate;
@@ -62,12 +60,21 @@ public class Player : MonoBehaviour
                 transform.rotation = Quaternion.AngleAxis(Ultility.AbsolutelyAngle(dir), Vector3.up);
             }
 
-            if (noInput && lastHasInput)
+            if (Input.GetButtonDown("Teleport"))
             {
                 vr.Teleport(transform.position, transform.forward);
             }
 
-            lastHasInput = !noInput;
+            if (Input.GetButtonDown("Resume"))
+            {
+                Vector3 pos = vr.Camera.transform.position;
+                pos.y = vr.transform.position.y + vr.Height;
+                transform.position = pos;
+
+                Vector3 rot = vr.Camera.transform.rotation.eulerAngles;
+                rot.x = rot.z = 0f;
+                transform.eulerAngles = rot;
+            }
         }
         else
         {
